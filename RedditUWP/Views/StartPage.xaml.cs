@@ -34,5 +34,10 @@ namespace RedditUWP.Views
         {
             base.OnNavigatedTo(e);
         }
+
+        private void Posts_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

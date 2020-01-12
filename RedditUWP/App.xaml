@@ -2,8 +2,18 @@
     x:Class="RedditUWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:RedditUWP">
+    xmlns:local="using:RedditUWP"
+    xmlns:templates="using:RedditUWP.Templates"
+    xmlns:vm="using:RedditUWP.ViewModels"
+    RequestedTheme="Dark">
+
     <Application.Resources>
-        <vm:ViewModelLocator xmlns:vm="using:RedditUWP.ViewModels" x:Key="Locator" />
+        <ResourceDictionary>
+            <vm:ViewModelLocator xmlns:vm="using:RedditUWP.ViewModels" x:Key="Locator" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <templates:DataTemplates/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

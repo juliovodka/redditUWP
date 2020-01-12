@@ -2,6 +2,7 @@
 using RedditUWP.Models;
 using RedditUWP.Services;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace RedditUWP.ViewModels
 {
@@ -9,11 +10,12 @@ namespace RedditUWP.ViewModels
     {
         #region Variables
         private readonly IRedditService redditService;
-        private ObservableCollection<RedditPost> posts;
+        private ObservableCollection<Post> posts;
+        private Post postSelected;
         private string title;
         #endregion
 
-        public ObservableCollection<RedditPost> Posts
+        public ObservableCollection<Post> Posts
         {
             get { return posts; }
             set
@@ -21,6 +23,18 @@ namespace RedditUWP.ViewModels
                 Set(nameof(Posts), ref posts, value);
             }
         }
+
+        public Post PostSelected
+        {
+            get { return postSelected; }
+            set
+            {
+                postSelected = value;
+
+                Set(nameof(PostSelected), ref postSelected, value);
+            }
+        }
+
 
         public string Title
         {
@@ -31,9 +45,20 @@ namespace RedditUWP.ViewModels
             }
         }
 
-        public StartViewModel()
+        public StartViewModel(IRedditService rs)
         {
-            Title = "Hello Joel";
+            this.redditService = rs;
+
+            Title = "Reddit Tops";
+
+            _ = LoadData();
+            
         }
+
+        private async Task LoadData()
+        {
+            Posts = new ObservableCollection<Post>(await redditService.GetTopPosts());
+        }
+
     }
 }

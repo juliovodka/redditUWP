@@ -9,7 +9,45 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding StartInstance, Source={StaticResource Locator}}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Name="Title"  HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Title}" FontFamily="Segoe UI Historic" />
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid BorderBrush="Black" BorderThickness="1" Padding="20" XYFocusKeyboardNavigation="Enabled" AllowFocusOnInteraction="True">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="95*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{x:Bind ViewModel.Title, Mode=OneWay}" HorizontalAlignment="Center" FontStyle="Normal" IsColorFontEnabled="True" FontSize="24"/>
+        
+        <Grid Grid.Row="1" x:Name="PostsGrid" VerticalAlignment="Top">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+
+
+            <ListView x:Name="Posts" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" ItemTemplate="{StaticResource PostTemplateItem}">
+            </ListView>
+        </Grid>
+
+      
+       
     </Grid>
 </Page>
