@@ -6,7 +6,8 @@
     x:Class="RedditUWP.Templates.DataTemplates">
 
     <DataTemplate  x:Key="PostTemplateItem" x:Name="PostTemplateItem" x:DataType="models:Post">
-        <Grid Margin="0,12,0,12" AutomationProperties.Name="{x:Bind data.title}">
+        <Grid Margin="0,12,0,12" AutomationProperties.Name="{x:Bind data.title}" Visibility="{x:Bind data.Dismiss, Mode=OneWay, Converter={StaticResource FalseToVisibleConverter}}">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" MinWidth="100"/>
                 <ColumnDefinition Width="90*" />
@@ -16,8 +17,21 @@
                 <Image Source="{x:Bind data.thumbnail}" MaxHeight="100" MaxWidth="100" Stretch="Fill"/>
 
                 <Ellipse RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Fill="Blue" Height="15" Width="15" StrokeThickness="1" Stroke="Black" Visibility="{x:Bind data.Read, Mode=OneWay, Converter={StaticResource FalseToVisibleConverter}}"/>
-            </RelativePanel>
 
+                <Button x:Name="btnDismissPost" Command="{Binding ElementName=Posts, Path=DataContext.DismissCommand}" CommandParameter="{Binding}" Canvas.ZIndex="100" BorderThickness="0" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True" Background="Red">
+                    <Button.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Dark">
+                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Black"/>
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+                    </Button.Resources>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>
+                </Button>
+            </RelativePanel>
 
             <StackPanel Margin="12,0,0,0" Grid.Column="1">
                 <TextBlock Text="{x:Bind data.title}" FontFamily="Segoe UI" FontSize="18" FontWeight="ExtraBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" LineHeight="20" TextTrimming="CharacterEllipsis" MaxLines="2" TextWrapping="WrapWholeWords"/>
@@ -34,6 +48,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
     </DataTemplate>
 
 </ResourceDictionary>

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace RedditUWP.Models
     public class PostDetail : ObservableObject
     {
         private bool read = false;
+        private bool dismmiss = false;
 
         public string id { get; set; }
         public string title { get; set; }
@@ -19,14 +21,22 @@ namespace RedditUWP.Models
         public int num_comments { get; set; }
         public string thumbnail { get; set; }
         public double created_utc { get; set; }
-        public bool dismmiss { get; set; } = false;
-
+      
         public bool Read
         {
             get { return read; }
             set
             {
                 Set(nameof(Read), ref read, value);
+            }
+        }
+
+        public bool Dismiss
+        {
+            get { return dismmiss; }
+            set
+            {
+                Set(nameof(Dismiss), ref dismmiss, value);
             }
         }
 
@@ -57,6 +67,21 @@ namespace RedditUWP.Models
                 }
 
                 return value;
+            }
+        }
+
+        private RelayCommand _dismissCommand;
+
+
+        public RelayCommand DismissCommand
+        {
+            get
+            {
+                return _dismissCommand ?? (_dismissCommand = new RelayCommand(
+                    () =>
+                    {
+                        this.Dismiss = true;
+                    }));
             }
         }
 

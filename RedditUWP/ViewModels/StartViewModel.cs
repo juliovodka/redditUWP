@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using RedditUWP.Models;
 using RedditUWP.Services;
 using System.Collections.ObjectModel;
@@ -15,7 +16,25 @@ namespace RedditUWP.ViewModels
         private Post postSelected;
         private string title;
         private bool isLoading = true;
+        private RelayCommand<Post> _dismissCommand;
         #endregion
+
+        public RelayCommand<Post> DismissCommand
+        {
+            get
+            {
+                return _dismissCommand ?? (_dismissCommand = new RelayCommand<Post>(
+                    (Post item) =>
+                    {
+                        if (PostSelected != null && PostSelected.data.id == item.data.id)
+                        {
+                            PostSelected = null;
+                        }
+
+                        this.Posts.Remove(item);
+                    }));
+            }
+        }
 
         public ObservableCollection<Post> Posts
         {
