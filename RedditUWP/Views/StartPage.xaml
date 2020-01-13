@@ -31,23 +31,10 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0" Text="{x:Bind ViewModel.Title, Mode=OneWay}" HorizontalAlignment="Center" FontStyle="Normal" IsColorFontEnabled="True" FontSize="24"/>
-        
-        <Grid Grid.Row="1" x:Name="PostsGrid" VerticalAlignment="Top">
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100*"/>
-            </Grid.RowDefinitions>
-
-
-            <ListView x:Name="Posts" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" ItemTemplate="{StaticResource PostTemplateItem}">
-            </ListView>
-        </Grid>
-
+        <RefreshContainer Grid.Row="1" x:Name="rc" RefreshRequested="rc_RefreshRequested">
+            <ListView x:Name="Posts" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" ItemTemplate="{StaticResource PostTemplateItem}" />
+        </RefreshContainer>
       
-       
     </Grid>
 </Page>

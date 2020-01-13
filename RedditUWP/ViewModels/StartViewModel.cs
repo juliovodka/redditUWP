@@ -49,13 +49,13 @@ namespace RedditUWP.ViewModels
         {
             this.redditService = rs;
 
-            Title = "Reddit Tops";
+            Title = "Reddit Top Posts";
 
             _ = LoadData();
             
         }
 
-        private async Task LoadData()
+        public async Task LoadData()
         {
             Posts = new ObservableCollection<Post>(await redditService.GetTopPosts());
         }

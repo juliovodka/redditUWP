@@ -15,7 +15,7 @@ namespace RedditUWP.Services
         {
             var client = new HttpClient();
             
-            var stream = await client.GetStreamAsync("https://www.reddit.com/top.json?limit=50");
+            var stream = await client.GetStreamAsync("https://www.reddit.com/top.json?limit=50&sort=new");
 
             var serializer = new DataContractJsonSerializer(typeof(Posts));
 
