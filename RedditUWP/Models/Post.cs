@@ -15,6 +15,37 @@ namespace RedditUWP.Models
         public string thumbnail { get; set; }
         public double created_utc { get; set; }
         public bool visited { get; set; }
+
+        public string created
+        {
+            get
+            {
+                string value = string.Empty;
+
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+
+                dtDateTime = dtDateTime.AddSeconds(created_utc).ToLocalTime();
+
+                TimeSpan span = DateTime.Now - dtDateTime;
+
+                double total = span.Hours;
+
+                value = $"{span.Hours} hours ago";
+
+                if (total > 24)
+                {
+                    value = $"{span.Days} days ago";
+                }
+
+                if (total < 0)
+                {
+                    value = $"{span.Minutes} minutes ago";
+                }
+
+                return value;
+            }
+        }
+
     }
 
     public class Post

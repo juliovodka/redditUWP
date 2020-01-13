@@ -19,11 +19,11 @@
                     <TextBlock Text="{x:Bind data.author}" FontFamily="Segoe UI" FontWeight="Normal" Margin="5,0,0,0" LineHeight="20" Style="{ThemeResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" MaxLines="1"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{x:Bind data.created_utc}" FontFamily="Segoe UI" FontWeight="Normal" LineHeight="20" Style="{ThemeResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" MaxLines="1"/>
+                    <TextBlock Text="{x:Bind data.created}" FontFamily="Segoe UI" FontWeight="Normal" LineHeight="20" Style="{ThemeResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" MaxLines="1"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{x:Bind data.num_comments}" FontFamily="Segoe UI" FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" />
-                    <TextBlock Text="comments"  FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" LineHeight="20" Margin="5,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" MaxLines="1"/>
+                    <TextBlock Text="comments" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" LineHeight="20" Margin="5,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" TextTrimming="CharacterEllipsis" MaxLines="1"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
