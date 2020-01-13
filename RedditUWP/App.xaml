@@ -5,12 +5,14 @@
     xmlns:local="using:RedditUWP"
     xmlns:templates="using:RedditUWP.Templates"
     xmlns:vm="using:RedditUWP.ViewModels"
+    xmlns:helpers="using:RedditUWP.Helpers"
+    xmlns:converters="using:RedditUWP.Converters"
     RequestedTheme="Dark">
 
     <Application.Resources>
         <ResourceDictionary>
             <vm:ViewModelLocator xmlns:vm="using:RedditUWP.ViewModels" x:Key="Locator" />
-
+            <converters:BooleanToVisibilityConverter x:Key="FalseToVisibleConverter" IsReversed="True" />
             <ResourceDictionary.MergedDictionaries>
                 <templates:DataTemplates/>
             </ResourceDictionary.MergedDictionaries>

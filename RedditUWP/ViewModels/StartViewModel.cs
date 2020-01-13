@@ -2,6 +2,7 @@
 using RedditUWP.Models;
 using RedditUWP.Services;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RedditUWP.ViewModels
@@ -13,6 +14,7 @@ namespace RedditUWP.ViewModels
         private ObservableCollection<Post> posts;
         private Post postSelected;
         private string title;
+        private bool isLoading = true;
         #endregion
 
         public ObservableCollection<Post> Posts
@@ -21,6 +23,8 @@ namespace RedditUWP.ViewModels
             set
             {
                 Set(nameof(Posts), ref posts, value);
+
+                IsLoading = false;
             }
         }
 
@@ -29,12 +33,25 @@ namespace RedditUWP.ViewModels
             get { return postSelected; }
             set
             {
-                postSelected = value;
-
+                if (value != null)
+                {
+                    value.data.Read = true;
+                }
+                
                 Set(nameof(PostSelected), ref postSelected, value);
             }
         }
 
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+
+                Set(nameof(IsLoading), ref isLoading, value);
+            }
+        }
 
         public string Title
         {
@@ -49,15 +66,21 @@ namespace RedditUWP.ViewModels
         {
             this.redditService = rs;
 
+            IsLoading = true;
+
             Title = "Reddit Top Posts";
 
             _ = LoadData();
-            
+
+          
+
         }
 
         public async Task LoadData()
         {
             Posts = new ObservableCollection<Post>(await redditService.GetTopPosts());
+
+            
         }
 
     }

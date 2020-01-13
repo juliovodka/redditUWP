@@ -19,7 +19,7 @@
         </TransitionCollection>
     </Page.Transitions>
 
-    <Grid BorderBrush="Black" BorderThickness="1" Padding="20" XYFocusKeyboardNavigation="Enabled" AllowFocusOnInteraction="True">
+    <Grid BorderBrush="Black" BorderThickness="1" Padding="20">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="5*" />
@@ -32,9 +32,44 @@
 
         <TextBlock Grid.Row="0" Text="{x:Bind ViewModel.Title, Mode=OneWay}" HorizontalAlignment="Center" FontStyle="Normal" IsColorFontEnabled="True" FontSize="24"/>
 
-        <RefreshContainer Grid.Row="1" x:Name="rc" RefreshRequested="rc_RefreshRequested">
-            <ListView x:Name="Posts" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" ItemTemplate="{StaticResource PostTemplateItem}" />
-        </RefreshContainer>
-      
+        <ProgressRing Grid.Row="1" IsActive="false" Canvas.ZIndex="100" />
+
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*" />
+                <ColumnDefinition Width="40*" />
+            </Grid.ColumnDefinitions>
+
+            <ProgressRing Grid.Row="0" Grid.Column="0" IsActive="false" Canvas.ZIndex="1" />
+
+            <RefreshContainer Grid.Row="0" Grid.Column="0" x:Name="rc" RefreshRequested="rc_RefreshRequested" >
+                <ListView x:Name="Posts" ItemsSource="{x:Bind ViewModel.Posts, Mode=OneWay}" IsTapEnabled="True" IsItemClickEnabled="True" ItemTemplate="{StaticResource PostTemplateItem}" Padding="0, 0, 10, 0" SelectedItem="{x:Bind ViewModel.PostSelected, Mode=TwoWay}" />
+            </RefreshContainer>
+
+            <Grid  Grid.Row="0" Grid.Column="1" AutomationProperties.Name="{x:Bind ViewModel.PostSelected.data.title, Mode=OneWay}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="80*" />
+                </Grid.RowDefinitions>
+
+                <Image Source="{x:Bind ViewModel.PostSelected.data.thumbnail, Mode=OneWay}" MaxHeight="200" MaxWidth="200" Stretch="Fill" Grid.Row="0"/>
+
+                <StackPanel Margin="12,0,0,0" Grid.Row="1">
+                    <TextBlock Text="{x:Bind ViewModel.PostSelected.data.title, Mode=OneWay}" FontFamily="Segoe UI" FontSize="18" FontWeight="ExtraBold" Style="{ThemeResource BaseTextBlockStyle}" HorizontalAlignment="Left" LineHeight="20"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        
     </Grid>
+
+    
 </Page>
